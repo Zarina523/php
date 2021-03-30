@@ -2,6 +2,7 @@
 
 if (isset($_REQUEST["text"])) {
     $password = $_POST['text'];
+    $length = preg_match('@(\S){10,}@', $password);
     $uppercase = preg_match('@(.*[A-Z]){2,}@', $password);
     $lowercase = preg_match('@(.*[a-z]){2,}@', $password);
     $number    = preg_match('@(.*\d){2,}@', $password);
@@ -11,7 +12,7 @@ if (isset($_REQUEST["text"])) {
     $lwcs = preg_match('@[a-z]{3,}@', $password);
     $smb = preg_match('@[%$#_*]{3,}@', $password);
 
-    if(strlen($password) < 10) {
+    if(!$length) {
         echo 'пароль должен содержать не менее 10 символов';
     }
     elseif (!$uppercase){
